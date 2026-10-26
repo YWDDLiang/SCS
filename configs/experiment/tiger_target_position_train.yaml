@@ -1,0 +1,5 @@
+# @package _global_
+# Compatibility alias. New experiments should use tiger_subsequence_candidate_train.
+defaults:
+  - tiger_subsequence_candidate_train
+  - _self_

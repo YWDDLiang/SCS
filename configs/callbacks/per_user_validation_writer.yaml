@@ -1,0 +1,7 @@
+defaults:
+  - default
+  - _self_
+
+per_user_validation_writer:
+  _target_: src.callbacks.per_user_validation_writer.PerUserValidationWriter
+  output_dir: ${paths.output_dir}/per_user_validation

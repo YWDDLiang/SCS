@@ -1,0 +1,6 @@
+defaults:
+  - default
+  - _self_
+
+wandb_metric_definitions:
+  _target_: src.callbacks.wandb_metric_definitions.WandbMetricDefinitions

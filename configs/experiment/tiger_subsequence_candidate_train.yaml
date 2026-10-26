@@ -1,0 +1,42 @@
+# @package _global_
+defaults:
+  - tiger_train_flat
+  - _self_
+
+subsequence_candidate_store_path: data/subsequence-candidate-stores/beauty_train.pt
+selected_candidate_indices_path: null
+
+tags:
+  - amazon-p5-gr-subsequence-candidate-train
+
+data_loading:
+  train_dataloader_config:
+    dataloader:
+      subsequence_candidate_store_path: ${subsequence_candidate_store_path}
+      selected_candidate_indices_path: ${selected_candidate_indices_path}
+      batch_size_per_device: 512
+      num_workers: 4
+      assign_all_files_per_worker: false
+      drop_last: false
+      collate_fn:
+        _target_: src.data.loading.components.collate_functions.collate_subsequence_candidate_batch
+        _partial_: true
+  datamodule:
+    _target_: src.data.loading.datamodules.sequence_datamodule.SubsequenceCandidateSequenceDataModule
+    train_dataloader_config: ${..train_dataloader_config.dataloader}
+    val_dataloader_config: ${..val_dataloader_config.dataloader}
+    test_dataloader_config: ${..test_dataloader_config.dataloader}
+
+trainer:
+  devices: 1
+  strategy: auto
+  sync_batchnorm: false
+  max_steps: -1
+  max_epochs: 1
+  accumulate_grad_batches: 1
+  val_check_interval: 1.0
+
+callbacks:
+  model_checkpoint:
+    every_n_epochs: 1
+    every_n_train_steps: null

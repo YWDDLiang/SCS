@@ -1,0 +1,12 @@
+wandb:
+  _target_: lightning.pytorch.loggers.wandb.WandbLogger
+  project: ${oc.env:WANDB_PROJECT,compute-optimal-tiger}
+  entity: ${oc.env:WANDB_ENTITY,null}
+  name: ${oc.env:WANDB_NAME,null}
+  group: ${oc.env:WANDB_GROUP,null}
+  tags: ${tags}
+  save_dir: ${paths.output_dir}
+  log_model: false
+  offline: ${oc.decode:${oc.env:WANDB_OFFLINE,false}}
+  prefix: ""
+  save_code: false

@@ -1,0 +1,22 @@
+defaults:
+  - default
+  - _self_
+
+compute_optimal_plateau:
+  _target_: src.callbacks.compute_optimal_plateau.ComputeOptimalPlateau
+  decision_path: ${paths.output_dir}/schedule_decision.json
+  monitor: val/ndcg@10
+  total_update_budget: 1200
+  refinements_used: 0
+  max_refinements: 2
+  window: 5
+  min_step: 400
+  trigger_gain_ratio: 0.10
+  scoring_cost_updates: 15
+  min_updates_after_refinement: 50
+  min_replacement_fraction: 0.05
+  max_replacement_fraction: 0.15
+  refinement_started_step: null
+  pre_refinement_best: null
+  probe_updates: 20
+  min_relative_acceptance_gain: 0.002
